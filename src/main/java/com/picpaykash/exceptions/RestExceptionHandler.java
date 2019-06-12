@@ -45,7 +45,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	
 	@ExceptionHandler(Exception.class)
-    public ResponseEntity<?> geralException(UniqueException exc,
+    public ResponseEntity<?> geralException(Exception exc,
             HttpServletRequest request) {
 		
 		ErrorDetail errorDetail = new ErrorDetail();
@@ -56,6 +56,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setDeveloperMessage(exc.getClass().getName());
 
         return new ResponseEntity<>(errorDetail, null, HttpStatus.OK);
+    }
+	
+	
+	@ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> erroInternoException(NullPointerException exc,
+            HttpServletRequest request) {
+		
+		ErrorDetail errorDetail = new ErrorDetail();
+        errorDetail.setData( LocalDate.now());
+        errorDetail.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        errorDetail.setDetail(exc.getMessage());
+       
+
+        return new ResponseEntity<>(errorDetail, null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 	
 
