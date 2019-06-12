@@ -8,7 +8,7 @@ import com.picpaykash.exceptions.ValidaCamposException;
 import com.picpaykash.model.User;
 
 public interface UserService {
-	public List<User> lisAllUsers();
+	public List<User> listUsers(String usrFiltro);
 	
 	public User addUser(User user) throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException;
 	

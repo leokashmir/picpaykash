@@ -7,6 +7,6 @@ import com.picpaykash.model.Consumer;
 
 public interface ConsumerService {
 	
-	public void addConsumer(ConsumerViewDto consumer) throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException;
+	public Consumer addConsumer(ConsumerViewDto consumer) throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException;
 
 }

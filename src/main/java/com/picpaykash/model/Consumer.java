@@ -23,7 +23,7 @@ public class Consumer {
 	private Long consumerId;
 	
 	@Column(name = "USER_NAME")
-	private String username;
+	private String userName;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id_fk")
@@ -39,12 +39,14 @@ public class Consumer {
 		this.consumerId = consumerId;
 	}
 
-	public String getUsername() {
-		return username;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public User getUser() {

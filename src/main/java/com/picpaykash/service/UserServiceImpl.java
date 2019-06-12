@@ -2,6 +2,7 @@ package com.picpaykash.service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	
-	public List<User> lisAllUsers(){
-		return userRepository.findAll();
-	}
-
+	
 
 	@Override
 	public User addUser(User user) throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException {
@@ -82,6 +80,22 @@ public class UserServiceImpl implements UserService {
 		usuarioDetalhes.setUser(userRepository.findById(id));
 		usuarioDetalhes.setAccounts(accounts);
 		return usuarioDetalhes;
+	}
+
+
+	@Override
+	public List<User> listUsers(String usrFiltro) {
+		
+		List<User> lstUsuarios = new ArrayList<User>();
+		
+		if(usrFiltro == null || usrFiltro.equals("")) {
+			lstUsuarios =  userRepository.findAll();
+		}else {
+			lstUsuarios = userRepository.findByNameOrUserName(usrFiltro);
+		}
+		
+		return lstUsuarios;
+		
 	}
 
 }

@@ -6,7 +6,6 @@ import java.lang.reflect.Modifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.picpaykash.DTO.ConsumerViewDto;
 import com.picpaykash.DTO.SellerViewDTO;
 import com.picpaykash.exceptions.UniqueException;
 import com.picpaykash.exceptions.ValidaCamposException;
@@ -25,7 +24,7 @@ public class SellerServiceImpl implements SellerService {
 	private ConsumerRepository consumerRepository;
 	
 	@Override
-	public void addSeller(SellerViewDTO sellerViewDto)
+	public Seller addSeller(SellerViewDTO sellerViewDto)
 			throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException {
 		
 		
@@ -47,10 +46,15 @@ public class SellerServiceImpl implements SellerService {
 				
 			
 				if(consumerRepository.existsById(sellerViewDto.getUserId())) {
-					throw new UniqueException("Usuario Já Possui Cadastro como Consumero");
+					throw new UniqueException("Usuario Já Possui Cadastro como Consumer");
 				}
 	
-				try {
+				if(sellerRepository.findByUserNameOrName(sellerViewDto.getUserName()) != null
+						&& sellerRepository.findByUserNameOrName(sellerViewDto.getUserName()).size() > 0) {
+					throw new UniqueException("User Name, já Cadastrado");
+				}
+				
+				
 					Seller seller = new Seller();
 					User user = new User();
 					user.setUserId(sellerViewDto.getUserId());
@@ -61,11 +65,9 @@ public class SellerServiceImpl implements SellerService {
 					seller.setUserName(sellerViewDto.getUserName());
 					seller.setUser(user);
 					
-					sellerRepository.save(seller);
+					return sellerRepository.save(seller);
 				
-				}catch(Exception d) {
-					d.getMessage();
-				}
+				
 			
 			}
 	

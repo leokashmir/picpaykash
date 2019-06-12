@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -46,9 +47,10 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userOk);
 	}
 	
-	@GetMapping("/users" )
-	public List<User> listAllUsers() {
-		return userService.lisAllUsers();
+	@GetMapping("/users")
+	public List<User> listUsers(@RequestParam("q") String usrFiltro) {
+		
+		return userService.listUsers(usrFiltro);
 	}
 	
 	@PostMapping("/users/consumers")

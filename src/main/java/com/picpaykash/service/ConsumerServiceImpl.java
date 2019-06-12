@@ -25,7 +25,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 	
 
 	@Override
-	public void addConsumer(ConsumerViewDto consViewDto)
+	public Consumer addConsumer(ConsumerViewDto consViewDto)
 			throws UniqueException, ValidaCamposException, IllegalArgumentException, IllegalAccessException {
 		
 	
@@ -48,25 +48,25 @@ public class ConsumerServiceImpl implements ConsumerService {
 		}
 		
 		if(sellerRepository.existsById(consViewDto.getUserId())) {
-			throw new UniqueException("Usuario Já Possui Cadastro como Vendedor");
+			throw new UniqueException("Usuario Já Possui Cadastro como Logista");
 		}
 		
-		try {
+		
+		
+		if(consumerRepository.findByUserNameOrName(consViewDto.getUserName()) != null 
+				&& consumerRepository.findByUserNameOrName(consViewDto.getUserName()).size() > 0 ) {
+			throw new UniqueException("User Name, já Cadastrado");
+		}
+		
+		
 			Consumer consumerObj = new Consumer();
 			User user = new User();
 			user.setUserId(consViewDto.getUserId());
 			
-			consumerObj.setUsername(consViewDto.getUsername());
+			consumerObj.setUserName(consViewDto.getUserName());
 			consumerObj.setUser(user);
-			consumerRepository.save(consumerObj);
-		}
-		catch(Exception f) {
-			f.getMessage();
-		}
-	
-		
-		
-		
+			return consumerRepository.save(consumerObj);
+			
 	}
 
 }

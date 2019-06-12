@@ -5,18 +5,20 @@ public class ConsumerViewDto {
 	
 
 	
-	private String username;
+	private String userName;
 	
 	private Long userId;
 
 	
 
-	public String getUsername() {
-		return username;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Long getUserId() {
